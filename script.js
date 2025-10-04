@@ -352,6 +352,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function validateForm(form) {
     const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
     let isValid = true;
+    console.log('Validating form with', inputs.length, 'required fields');
     
     inputs.forEach(input => {
         if (!input.value.trim()) {
@@ -402,6 +403,7 @@ document.head.appendChild(styleSheet);
 function handleConsultationForm(e) {
     e.preventDefault();
     console.log('Consultation form submitted'); // Debug log
+    console.log('Form data:', new FormData(e.target));
     
     if (!validateForm(e.target)) {
         showMessage('error', 'Please fill in all required fields correctly.');
