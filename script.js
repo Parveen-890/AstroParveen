@@ -426,14 +426,21 @@ function handleConsultationForm(e) {
         form_type: 'Free Astrology Consultation'
     };
     
+    // Debug: Log email parameters
+    console.log('EmailJS Parameters:', emailParams);
+    console.log('Service ID: service_zou82rl');
+    console.log('Template ID: template_35l3jyf');
+    
     // Send email using EmailJS
     emailjs.send('service_zou82rl', 'template_35l3jyf', emailParams)
         .then(function(response) {
             console.log('SUCCESS!', response.status, response.text);
+            console.log('Full response:', response);
             showMessage('success', 'Thank you! Your free astrology consultation request has been submitted. We will contact you within 24 hours to schedule your session.');
             e.target.reset();
         }, function(error) {
             console.log('FAILED...', error);
+            console.log('Error details:', error);
             showMessage('error', 'Sorry, there was an error sending your request. Please try again or contact us directly via WhatsApp.');
         })
         .finally(() => {
@@ -526,8 +533,10 @@ const debouncedUpdateActiveNav = debounce(function() {
     });
 }, 100);
 
-// Replace the scroll event listener
-window.removeEventListener('scroll', updateActiveNav);
+// Replace the scroll event listener (only if updateActiveNav exists)
+if (typeof updateActiveNav !== 'undefined') {
+    window.removeEventListener('scroll', updateActiveNav);
+}
 window.addEventListener('scroll', debouncedUpdateActiveNav);
 
 // Course pricing calculator (if needed)
