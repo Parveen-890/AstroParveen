@@ -67,9 +67,10 @@ function initFAQ() {
     });
 }
 
-// Deployment verification
-console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.2-VARIABLE-CONFLICT-FIXED with universal email template');
+// Deployment verification - CACHE BUST v4.3
+console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.3-CACHE-FORCE-REFRESH with universal email template');
 console.log('📋 Form debugging enabled - Check console for detailed validation logs');
+console.log('🚀 CACHE BUST: Variable conflicts resolved, JavaScript errors fixed');
 
 // Form handling
 function initForms() {
