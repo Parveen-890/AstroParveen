@@ -68,7 +68,8 @@ function initFAQ() {
 }
 
 // Deployment verification - CACHE BUST v4.3
-console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.4-COURSE-FORM-FIXED with universal email template');
+console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.5-ENROLLMENT-FIELDS-FIXED with universal email template');
+console.log('🎯 ENROLLMENT FIX: Age and Experience fields now captured in emails');
 console.log('📋 Form debugging enabled - Check console for detailed validation logs');
 console.log('🚀 CACHE BUST: Variable conflicts resolved, JavaScript errors fixed');
 
@@ -348,6 +349,8 @@ function handleEnrollmentForm(e) {
         email: data.email || '',
         phone: data.phone || '',
         course: data.course || '',
+        age: data.age || '',
+        experience: data.experience || '',
         payment: data.payment || '',
         
         // Additional metadata
