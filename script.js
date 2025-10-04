@@ -68,7 +68,7 @@ function initFAQ() {
 }
 
 // Deployment verification
-console.log('🔧 Script.js loaded - Version: 2024-01-15-v3.2 with detailed field debugging');
+console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.0-COMPLETE with universal email template');
 console.log('📋 Form debugging enabled - Check console for detailed validation logs');
 
 // Form handling
@@ -441,7 +441,6 @@ function handleConsultationForm(e) {
         return;
     }
     
-    const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     
     // Show loading state
