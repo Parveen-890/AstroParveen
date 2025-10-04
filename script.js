@@ -68,7 +68,7 @@ function initFAQ() {
 }
 
 // Deployment verification - CACHE BUST v4.3
-console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.3-CACHE-FORCE-REFRESH with universal email template');
+console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.4-COURSE-FORM-FIXED with universal email template');
 console.log('📋 Form debugging enabled - Check console for detailed validation logs');
 console.log('🚀 CACHE BUST: Variable conflicts resolved, JavaScript errors fixed');
 
@@ -318,14 +318,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function handleEnrollmentForm(e) {
     e.preventDefault();
+    console.log('Course enrollment form submitted'); // Debug log
     
     if (!validateForm(e.target)) {
         showMessage('error', 'Please fill in all required fields correctly.');
         return;
     }
     
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+    const enrollmentFormData = new FormData(e.target);
+    const data = Object.fromEntries(enrollmentFormData);
+    
+    console.log('Enrollment form data:', data);
     
     // Show loading state
     const submitBtn = e.target.querySelector('button[type="submit"]');
@@ -333,13 +336,44 @@ function handleEnrollmentForm(e) {
     submitBtn.innerHTML = '<span class="loading"></span> Submitting...';
     submitBtn.disabled = true;
     
-    // Simulate API call (replace with actual implementation)
-    setTimeout(() => {
-        showMessage('success', 'Thank you for your enrollment! We will contact you within 24 hours with payment details and course schedule.');
-        closeEnrollmentModal();
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }, 2000);
+    // EmailJS configuration - Course enrollment
+    const emailParams = {
+        // Template metadata
+        form_type: 'Course Enrollment',
+        submission_date: new Date().toLocaleString(),
+        from_email: data.email,
+        
+        // Course enrollment fields
+        name: data.name || '',
+        email: data.email || '',
+        phone: data.phone || '',
+        course: data.course || '',
+        payment: data.payment || '',
+        
+        // Additional metadata
+        total_fields: Object.keys(data).length,
+        filled_fields: Object.values(data).filter(value => value && value.trim()).length
+    };
+    
+    console.log('EmailJS Parameters:', emailParams);
+    console.log('Service ID: service_67fctdj');
+    console.log('Template ID: template_gsdp46s');
+    
+    // Send email using EmailJS
+    emailjs.send('service_67fctdj', 'template_gsdp46s', emailParams)
+        .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            showMessage('success', 'Thank you for your enrollment! We will contact you within 24 hours with payment details and course schedule.');
+            closeEnrollmentModal();
+            e.target.reset();
+        }, function(error) {
+            console.log('FAILED...', error);
+            showMessage('error', 'Sorry, there was an error sending your enrollment. Please try again or contact us directly via WhatsApp.');
+        })
+        .finally(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        });
 }
 
 // Add click handlers for WhatsApp buttons
