@@ -67,6 +67,10 @@ function initFAQ() {
     });
 }
 
+// Deployment verification
+console.log('🔧 Script.js loaded - Version: 2024-01-15-v3.1 with enhanced debugging');
+console.log('📋 Form debugging enabled - Check console for detailed validation logs');
+
 // Form handling
 function initForms() {
     // Consultation form
