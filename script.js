@@ -13,8 +13,8 @@ function initNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section[id]');
     
-    // Active navigation highlighting
-    function updateActiveNav() {
+    // Active navigation highlighting - moved to global scope
+    window.updateActiveNav = function() {
         let current = '';
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
@@ -30,7 +30,7 @@ function initNavigation() {
                 link.classList.add('active');
             }
         });
-    }
+    };
 
     // Update on scroll
     window.addEventListener('scroll', updateActiveNav);
