@@ -355,7 +355,9 @@ function validateForm(form) {
     console.log('Validating form with', inputs.length, 'required fields');
     
     inputs.forEach(input => {
+        console.log('Checking field:', input.name, 'Value:', input.value);
         if (!input.value.trim()) {
+            console.log('Field failed validation:', input.name, 'is empty');
             input.classList.add('error');
             isValid = false;
         } else {
@@ -381,6 +383,7 @@ function validateForm(form) {
         }
     });
     
+    console.log('Form validation result:', isValid);
     return isValid;
 }
 
