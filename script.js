@@ -361,10 +361,11 @@ function validateForm(form) {
     inputs.forEach(input => {
         console.log('Checking field:', input.name, 'Value:', input.value);
         if (!input.value.trim()) {
-            console.log('Field failed validation:', input.name, 'is empty');
+            console.log('❌ Field failed validation:', input.name, 'is empty');
             input.classList.add('error');
             isValid = false;
         } else {
+            console.log('✅ Field passed basic validation:', input.name);
             input.classList.remove('error');
         }
         
@@ -372,17 +373,24 @@ function validateForm(form) {
         if (input.type === 'email' && input.value) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(input.value)) {
+                console.log('❌ Email validation failed:', input.value);
                 input.classList.add('error');
                 isValid = false;
+            } else {
+                console.log('✅ Email validation passed:', input.value);
             }
         }
         
         // Phone validation
         if (input.type === 'tel' && input.value) {
             const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-            if (!phoneRegex.test(input.value.replace(/\s/g, ''))) {
+            const cleanPhone = input.value.replace(/\s/g, '');
+            if (!phoneRegex.test(cleanPhone)) {
+                console.log('❌ Phone validation failed:', input.value, 'Clean:', cleanPhone);
                 input.classList.add('error');
                 isValid = false;
+            } else {
+                console.log('✅ Phone validation passed:', input.value);
             }
         }
     });
@@ -442,13 +450,26 @@ function handleConsultationForm(e) {
     submitBtn.innerHTML = '<span class="loading"></span> Booking...';
     submitBtn.disabled = true;
     
-            // EmailJS configuration
+            // EmailJS configuration - Universal template approach
             const emailParams = {
-                from_name: data.name,
+                // Template metadata
+                form_type: 'Free Astrology Consultation',
+                submission_date: new Date().toLocaleString(),
                 from_email: data.email,
-                phone: data.phone || 'Not provided',
-                message: data.message,
-                form_type: 'Free Astrology Consultation'
+                
+                // All form fields (will be displayed dynamically in template)
+                name: data.name || '',
+                email: data.email || '',
+                phone: data.phone || '',
+                birthDate: data.birthDate || '',
+                birthTime: data.birthTime || '',
+                birthPlace: data.birthPlace || '',
+                service: data.service || '',
+                message: data.message || '',
+                
+                // Additional metadata
+                total_fields: Object.keys(data).length,
+                filled_fields: Object.values(data).filter(value => value && value.trim()).length
             };
             
             // Debug: Log email parameters
