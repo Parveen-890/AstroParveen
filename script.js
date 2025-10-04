@@ -417,22 +417,22 @@ function handleConsultationForm(e) {
     submitBtn.innerHTML = '<span class="loading"></span> Booking...';
     submitBtn.disabled = true;
     
-    // EmailJS configuration
-    const emailParams = {
-        from_name: data.name,
-        from_email: data.email,
-        phone: data.phone || 'Not provided',
-        message: data.message,
-        form_type: 'Free Astrology Consultation'
-    };
-    
-    // Debug: Log email parameters
-    console.log('EmailJS Parameters:', emailParams);
-    console.log('Service ID: service_zou82rl');
-    console.log('Template ID: template_35l3jyf');
-    
-    // Send email using EmailJS
-    emailjs.send('service_zou82rl', 'template_35l3jyf', emailParams)
+            // EmailJS configuration
+            const emailParams = {
+                from_name: data.name,
+                from_email: data.email,
+                phone: data.phone || 'Not provided',
+                message: data.message,
+                form_type: 'Free Astrology Consultation'
+            };
+            
+            // Debug: Log email parameters
+            console.log('EmailJS Parameters:', emailParams);
+            console.log('Service ID: service_67fctdj');
+            console.log('Template ID: template_gsdp46s');
+            
+            // Send email using EmailJS
+            emailjs.send('service_67fctdj', 'template_gsdp46s', emailParams)
         .then(function(response) {
             console.log('SUCCESS!', response.status, response.text);
             console.log('Full response:', response);
