@@ -67,21 +67,15 @@ function initFAQ() {
     });
 }
 
-// Deployment verification - CACHE BUST v4.3
-console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.5-ENROLLMENT-FIELDS-FIXED with universal email template');
-console.log('🎯 ENROLLMENT FIX: Age and Experience fields now captured in emails');
-console.log('📋 Form debugging enabled - Check console for detailed validation logs');
-console.log('🚀 CACHE BUST: Variable conflicts resolved, JavaScript errors fixed');
+// Deployment verification
+console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.6-PRODUCTION-READY');
 
 // Form handling
 function initForms() {
     // Consultation form
     const consultationForm = document.getElementById('consultationForm');
     if (consultationForm) {
-        console.log('Consultation form found and initialized'); // Debug log
         consultationForm.addEventListener('submit', handleConsultationForm);
-    } else {
-        console.log('Consultation form not found'); // Debug log
     }
     
     // Contact form removed - using consultation form instead
@@ -319,7 +313,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function handleEnrollmentForm(e) {
     e.preventDefault();
-    console.log('Course enrollment form submitted'); // Debug log
     
     if (!validateForm(e.target)) {
         showMessage('error', 'Please fill in all required fields correctly.');
@@ -328,8 +321,6 @@ function handleEnrollmentForm(e) {
     
     const enrollmentFormData = new FormData(e.target);
     const data = Object.fromEntries(enrollmentFormData);
-    
-    console.log('Enrollment form data:', data);
     
     // Show loading state
     const submitBtn = e.target.querySelector('button[type="submit"]');
@@ -358,19 +349,13 @@ function handleEnrollmentForm(e) {
         filled_fields: Object.values(data).filter(value => value && value.trim()).length
     };
     
-    console.log('EmailJS Parameters:', emailParams);
-    console.log('Service ID: service_67fctdj');
-    console.log('Template ID: template_gsdp46s');
-    
     // Send email using EmailJS
     emailjs.send('service_67fctdj', 'template_gsdp46s', emailParams)
         .then(function(response) {
-            console.log('SUCCESS!', response.status, response.text);
             showMessage('success', 'Thank you for your enrollment! We will contact you within 24 hours with payment details and course schedule.');
             closeEnrollmentModal();
             e.target.reset();
         }, function(error) {
-            console.log('FAILED...', error);
             showMessage('error', 'Sorry, there was an error sending your enrollment. Please try again or contact us directly via WhatsApp.');
         })
         .finally(() => {
@@ -394,16 +379,12 @@ document.addEventListener('DOMContentLoaded', function() {
 function validateForm(form) {
     const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
     let isValid = true;
-    console.log('Validating form with', inputs.length, 'required fields');
     
     inputs.forEach(input => {
-        console.log('Checking field:', input.name, 'Value:', input.value);
         if (!input.value.trim()) {
-            console.log('❌ Field failed validation:', input.name, 'is empty');
             input.classList.add('error');
             isValid = false;
         } else {
-            console.log('✅ Field passed basic validation:', input.name);
             input.classList.remove('error');
         }
         
@@ -411,11 +392,8 @@ function validateForm(form) {
         if (input.type === 'email' && input.value) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(input.value)) {
-                console.log('❌ Email validation failed:', input.value);
                 input.classList.add('error');
                 isValid = false;
-            } else {
-                console.log('✅ Email validation passed:', input.value);
             }
         }
         
@@ -424,16 +402,12 @@ function validateForm(form) {
             const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
             const cleanPhone = input.value.replace(/\s/g, '');
             if (!phoneRegex.test(cleanPhone)) {
-                console.log('❌ Phone validation failed:', input.value, 'Clean:', cleanPhone);
                 input.classList.add('error');
                 isValid = false;
-            } else {
-                console.log('✅ Phone validation passed:', input.value);
             }
         }
     });
     
-    console.log('Form validation result:', isValid);
     return isValid;
 }
 
@@ -455,24 +429,8 @@ document.head.appendChild(styleSheet);
 // Handle consultation form submission
 function handleConsultationForm(e) {
     e.preventDefault();
-    console.log('Consultation form submitted'); // Debug log
     
     const consultationFormData = new FormData(e.target);
-    console.log('Form data:', consultationFormData);
-    console.log('Form data entries:', Array.from(consultationFormData.entries()));
-    
-    // Debug: Check individual form fields
-    const form = e.target;
-    const name = form.querySelector('[name="name"]').value;
-    const email = form.querySelector('[name="email"]').value;
-    const phone = form.querySelector('[name="phone"]').value;
-    const service = form.querySelector('[name="service"]').value;
-    
-    console.log('Individual field values:');
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Phone:', phone);
-    console.log('Service:', service);
     
     if (!validateForm(e.target)) {
         showMessage('error', 'Please fill in all required fields correctly.');
@@ -509,21 +467,13 @@ function handleConsultationForm(e) {
                 filled_fields: Object.values(data).filter(value => value && value.trim()).length
             };
             
-            // Debug: Log email parameters
-            console.log('EmailJS Parameters:', emailParams);
-            console.log('Service ID: service_67fctdj');
-            console.log('Template ID: template_gsdp46s');
             
             // Send email using EmailJS
             emailjs.send('service_67fctdj', 'template_gsdp46s', emailParams)
         .then(function(response) {
-            console.log('SUCCESS!', response.status, response.text);
-            console.log('Full response:', response);
             showMessage('success', 'Thank you! Your free astrology consultation request has been submitted. We will contact you within 24 hours to schedule your session.');
             e.target.reset();
         }, function(error) {
-            console.log('FAILED...', error);
-            console.log('Error details:', error);
             showMessage('error', 'Sorry, there was an error sending your request. Please try again or contact us directly via WhatsApp.');
         })
         .finally(() => {

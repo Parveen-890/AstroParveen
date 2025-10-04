@@ -1897,3 +1897,38 @@ p {
     margin-top: 1rem;
     text-align: center;
 }
+
+/* Phone link styles for click-to-call functionality */
+.phone-link {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.phone-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.phone-link:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(0.95);
+}
+
+/* Mobile-specific phone link styles */
+@media (max-width: 768px) {
+    .phone-link {
+        font-weight: bold;
+        padding: 4px 8px;
+        border-radius: 6px;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .phone-link:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+}
