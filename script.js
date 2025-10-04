@@ -68,7 +68,7 @@ function initFAQ() {
 }
 
 // Deployment verification
-console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.1-JAVASCRIPT-FIXED with universal email template');
+console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.2-VARIABLE-CONFLICT-FIXED with universal email template');
 console.log('📋 Form debugging enabled - Check console for detailed validation logs');
 
 // Form handling
@@ -419,9 +419,9 @@ function handleConsultationForm(e) {
     e.preventDefault();
     console.log('Consultation form submitted'); // Debug log
     
-    const formData = new FormData(e.target);
-    console.log('Form data:', formData);
-    console.log('Form data entries:', Array.from(formData.entries()));
+    const consultationFormData = new FormData(e.target);
+    console.log('Form data:', consultationFormData);
+    console.log('Form data entries:', Array.from(consultationFormData.entries()));
     
     // Debug: Check individual form fields
     const form = e.target;
@@ -441,7 +441,7 @@ function handleConsultationForm(e) {
         return;
     }
     
-    const data = Object.fromEntries(formData);
+    const data = Object.fromEntries(consultationFormData);
     
     // Show loading state
     const submitBtn = e.target.querySelector('button[type="submit"]');
