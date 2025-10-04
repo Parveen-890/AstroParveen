@@ -68,7 +68,7 @@ function initFAQ() {
 }
 
 // Deployment verification
-console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.0-COMPLETE with universal email template');
+console.log('🔧 Script.js loaded - Version: 2024-01-15-v4.1-JAVASCRIPT-FIXED with universal email template');
 console.log('📋 Form debugging enabled - Check console for detailed validation logs');
 
 // Form handling
