@@ -417,13 +417,29 @@ function handleConsultationForm(e) {
     submitBtn.innerHTML = '<span class="loading"></span> Booking...';
     submitBtn.disabled = true;
     
-    // Simulate API call (replace with actual implementation)
-    setTimeout(() => {
-        showMessage('success', 'Thank you! Your free astrology consultation request has been submitted. We will contact you within 24 hours to schedule your session.');
-        e.target.reset();
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }, 2000);
+    // EmailJS configuration
+    const emailParams = {
+        from_name: data.name,
+        from_email: data.email,
+        phone: data.phone || 'Not provided',
+        message: data.message,
+        form_type: 'Free Astrology Consultation'
+    };
+    
+    // Send email using EmailJS
+    emailjs.send('service_zou82rl', 'template_35l3jyf', emailParams)
+        .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            showMessage('success', 'Thank you! Your free astrology consultation request has been submitted. We will contact you within 24 hours to schedule your session.');
+            e.target.reset();
+        }, function(error) {
+            console.log('FAILED...', error);
+            showMessage('error', 'Sorry, there was an error sending your request. Please try again or contact us directly via WhatsApp.');
+        })
+        .finally(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        });
 }
 
 function handleContactForm(e) {
