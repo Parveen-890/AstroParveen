@@ -68,7 +68,7 @@ function initFAQ() {
 }
 
 // Deployment verification
-console.log('🔧 Script.js loaded - Version: 2024-01-15-v3.1 with enhanced debugging');
+console.log('🔧 Script.js loaded - Version: 2024-01-15-v3.2 with detailed field debugging');
 console.log('📋 Form debugging enabled - Check console for detailed validation logs');
 
 // Form handling
@@ -410,7 +410,23 @@ document.head.appendChild(styleSheet);
 function handleConsultationForm(e) {
     e.preventDefault();
     console.log('Consultation form submitted'); // Debug log
-    console.log('Form data:', new FormData(e.target));
+    
+    const formData = new FormData(e.target);
+    console.log('Form data:', formData);
+    console.log('Form data entries:', Array.from(formData.entries()));
+    
+    // Debug: Check individual form fields
+    const form = e.target;
+    const name = form.querySelector('[name="name"]').value;
+    const email = form.querySelector('[name="email"]').value;
+    const phone = form.querySelector('[name="phone"]').value;
+    const service = form.querySelector('[name="service"]').value;
+    
+    console.log('Individual field values:');
+    console.log('Name:', name);
+    console.log('Email:', email);
+    console.log('Phone:', phone);
+    console.log('Service:', service);
     
     if (!validateForm(e.target)) {
         showMessage('error', 'Please fill in all required fields correctly.');
